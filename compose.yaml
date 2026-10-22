@@ -1,0 +1,11 @@
+services:
+  audit:
+    build: .
+    pid: "host"
+    network_mode: "host"
+    volumes:
+      # Montage en lecture seule pour accéder aux infos du système sans risques
+      - /:/host:ro
+      - /run/systemd:/run/systemd:ro
+    # On passe le paramètre -r pour que le script cherche dans /host/ au lieu de /
+    command: ["-r", "/host/"]
